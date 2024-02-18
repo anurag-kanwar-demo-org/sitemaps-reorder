@@ -8370,6 +8370,7 @@ __nccwpck_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(2186);
+var core_default = /*#__PURE__*/__nccwpck_require__.n(core);
 // EXTERNAL MODULE: ./node_modules/xml-js/lib/index.js
 var lib = __nccwpck_require__(8821);
 // EXTERNAL MODULE: ./node_modules/fs-extra/lib/index.js
@@ -15926,10 +15927,10 @@ async function run() {
   }
   try {
     // Log the current timestamp, wait, then log the new timestamp
-    core.core.debug(new Date().toTimeString())
-    core.core.debug(new Date().toTimeString())
+    core_default().debug(new Date().toTimeString())
+    core_default().debug(new Date().toTimeString())
     // Set outputs for other workflow steps to use
-    core.core.setOutput("time", new Date().toTimeString())
+    core_default().setOutput("time", new Date().toTimeString())
     const xmlPaths = await giveFileNames()
     let ekbar = true
     let output
@@ -15944,13 +15945,13 @@ async function run() {
       urls = urls.concat(result.urlset.url)
     }
 
-    core.core.setOutput(JSON.stringify(output, null, 2))
+    core_default().setOutput(JSON.stringify(output, null, 2))
     output.urlset.url = urls
     const result = await (0,lib.js2xml)(output, { spaces: 2, compact: true })
     await fs_extra_lib_default().watchFile("sitemap.xml", result)
   } catch (error) {
     // Fail the workflow run if an error occurs
-    core.core.setFailed(error.message)
+    core_default().setFailed(error.message)
   }
 }
 

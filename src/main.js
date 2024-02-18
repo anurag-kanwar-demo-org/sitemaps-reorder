@@ -1,4 +1,4 @@
-import { core } from "@actions/core"
+import core from "@actions/core"
 import { js2xml, xml2js } from "xml-js"
 import fs from "fs-extra"
 import { glob } from "glob"
