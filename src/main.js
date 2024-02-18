@@ -1,30 +1,41 @@
-const core = require('@actions/core')
-const { wait } = require('./wait')
-
+import { core } from "@actions/core"
+import { js2xml, xml2js } from "xml-js"
+import fs from "fs-extra"
+import { glob } from "glob"
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function run() {
+export async function run() {
+  async function giveFileNames() {
+    return await glob("sitemaps/**/*.xml", { ignore: "node_modules/**" })
+  }
   try {
-    const ms = core.getInput('milliseconds', { required: true })
-
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
-
     // Log the current timestamp, wait, then log the new timestamp
     core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
     core.debug(new Date().toTimeString())
-
     // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    core.setOutput("time", new Date().toTimeString())
+    const xmlPaths = await giveFileNames()
+    let ekbar = true
+    let output
+    let urls = []
+    for await (const path of xmlPaths) {
+      const xml = await fs.readFile(path, "utf-8")
+      const result = await xml2js(xml, { ignoreComment: true, compact: true })
+      if (ekbar === true) {
+        output = result
+        ekbar = false
+      }
+      urls = urls.concat(result.urlset.url)
+    }
+
+    core.setOutput(JSON.stringify(output, null, 2))
+    output.urlset.url = urls
+    const result = await js2xml(output, { spaces: 2, compact: true })
+    await fs.watchFile("sitemap.xml", result)
   } catch (error) {
     // Fail the workflow run if an error occurs
     core.setFailed(error.message)
   }
-}
-
-module.exports = {
-  run
 }
