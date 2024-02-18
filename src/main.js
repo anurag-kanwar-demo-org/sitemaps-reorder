@@ -15,25 +15,27 @@ export async function run() {
     core.debug(new Date().toTimeString())
     core.debug(new Date().toTimeString())
     // Set outputs for other workflow steps to use
-    core.setOutput("time", new Date().toTimeString())
-    const xmlPaths = await giveFileNames()
-    let ekbar = true
-    let output
-    let urls = []
-    for await (const path of xmlPaths) {
-      const xml = await fs.readFile(path, "utf-8")
-      const result = await xml2js(xml, { ignoreComment: true, compact: true })
-      if (ekbar === true) {
-        output = result
-        ekbar = false
-      }
-      urls = urls.concat(result.urlset.url)
-    }
+    // core.setOutput("time", new Date().toTimeString())
+    core.debug(__dirname)
+    core.debug(__filename)
+    // const xmlPaths = await giveFileNames()
+    // let ekbar = true
+    // let output
+    // let urls = []
+    // for await (const path of xmlPaths) {
+    //   const xml = await fs.readFile(path, "utf-8")
+    //   const result = await xml2js(xml, { ignoreComment: true, compact: true })
+    //   if (ekbar === true) {
+    //     output = result
+    //     ekbar = false
+    //   }
+    //   urls = urls.concat(result.urlset.url)
+    // }
 
-    core.setOutput(JSON.stringify(output, null, 2))
-    output.urlset.url = urls
-    const result = await js2xml(output, { spaces: 2, compact: true })
-    await fs.watchFile("sitemap.xml", result)
+    // core.setOutput(JSON.stringify(output, null, 2))
+    // output.urlset.url = urls
+    // const result = await js2xml(output, { spaces: 2, compact: true })
+    // await fs.watchFile("sitemap.xml", result)
   } catch (error) {
     // Fail the workflow run if an error occurs
     core.setFailed(error.message)
