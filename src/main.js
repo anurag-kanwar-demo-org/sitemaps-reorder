@@ -7,9 +7,9 @@ import { glob } from "glob"
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 export async function run() {
-  async function giveFileNames() {
-    return await glob("sitemaps/**/*.xml", { ignore: "node_modules/**" })
-  }
+  // async function giveFileNames() {
+  //   return await glob("sitemaps/**/*.xml", { ignore: "node_modules/**" })
+  // }
   try {
     // Log the current timestamp, wait, then log the new timestamp
     core.debug(new Date().toTimeString())
