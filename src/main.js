@@ -1,4 +1,7 @@
 const core = require("@actions/core")
+const fs = require("fs-extra")
+const path = require("path")
+const url = require("url")
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -11,6 +14,9 @@ export async function run() {
     // Log the current timestamp, wait, then log the new timestamp
     core.debug(new Date().toTimeString())
     core.debug(new Date().toTimeString())
+
+    const __filename = url.fileURLToPath(import.meta.url)
+    const __dirname = path.dirname(__filename)
     // Set outputs for other workflow steps to use
     // core.setOutput("time", new Date().toTimeString())
     core.debug(__dirname)
