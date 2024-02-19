@@ -1,5 +1,5 @@
 /**
  * The entrypoint for the action.
  */
-import { run } from "./main"
+const run = require("./main")
 run()

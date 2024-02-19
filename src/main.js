@@ -1,7 +1,4 @@
-import core from "@actions/core"
-import { js2xml, xml2js } from "xml-js"
-import fs from "fs-extra"
-import { glob } from "glob"
+const core = require("@actions/core")
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
