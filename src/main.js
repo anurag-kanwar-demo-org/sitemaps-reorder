@@ -12,15 +12,15 @@ async function run() {
   // }
   try {
     // Log the current timestamp, wait, then log the new timestamp
-    core.setOutput(new Date().toTimeString())
-    core.setOutput(new Date().toTimeString())
+    core.debug(new Date().toTimeString())
+    core.debug(new Date().toTimeString())
 
     // const __filename = url.fileURLToPath(import.meta.url)
     // const __dirname = path.dirname(__filename)
     // Set outputs for other workflow steps to use
     // core.setOutput("time", new Date().toTimeString())
-    core.setOutput(__dirname)
-    core.setOutput(__filename)
+    core.debug(__dirname)
+    core.debug(__filename)
     // const xmlPaths = await giveFileNames()
     // let ekbar = true
     // let output
