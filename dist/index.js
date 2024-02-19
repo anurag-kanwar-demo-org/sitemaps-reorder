@@ -5467,8 +5467,8 @@ async function run() {
     core.debug(new Date().toTimeString())
     core.debug(new Date().toTimeString())
 
-    const __filename = url.fileURLToPath(import.meta.url)
-    const __dirname = path.dirname(__filename)
+    // const __filename = url.fileURLToPath(import.meta.url)
+    // const __dirname = path.dirname(__filename)
     // Set outputs for other workflow steps to use
     // core.setOutput("time", new Date().toTimeString())
     core.debug(__dirname)
