@@ -5443,13 +5443,14 @@ exports["default"] = _default;
 /***/ }),
 
 /***/ 1713:
-/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+/***/ ((module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
 __nccwpck_require__.r(__webpack_exports__);
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
 /* harmony export */   "run": () => (/* binding */ run)
 /* harmony export */ });
+/* module decorator */ module = __nccwpck_require__.hmd(module);
 const core = __nccwpck_require__(2186)
 const fs = __nccwpck_require__(5630)
 const path = __nccwpck_require__(1017)
@@ -5495,6 +5496,10 @@ async function run() {
     // Fail the workflow run if an error occurs
     core.setFailed(error.message)
   }
+}
+
+module.exports = {
+  run
 }
 
 
@@ -5626,8 +5631,8 @@ module.exports = require("util");
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
+/******/ 			id: moduleId,
+/******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
@@ -5639,6 +5644,9 @@ module.exports = require("util");
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
+/******/ 	
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -5654,6 +5662,21 @@ module.exports = require("util");
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/harmony module decorator */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.hmd = (module) => {
+/******/ 			module = Object.create(module);
+/******/ 			if (!module.children) module.children = [];
+/******/ 			Object.defineProperty(module, 'exports', {
+/******/ 				enumerable: true,
+/******/ 				set: () => {
+/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
+/******/ 				}
+/******/ 			});
+/******/ 			return module;
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -5684,7 +5707,7 @@ var __webpack_exports__ = {};
 /**
  * The entrypoint for the action.
  */
-const run = __nccwpck_require__(1713)
+const { run } = __nccwpck_require__(1713)
 run()
 
 })();
